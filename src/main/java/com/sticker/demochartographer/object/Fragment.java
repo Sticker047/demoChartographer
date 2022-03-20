@@ -18,10 +18,10 @@ public class Fragment {
     private int positionX;
     private int positionY;
 
-    private Charta canvas;
+    private Charta charta;
 
     public Fragment(File file, Long canvasId, Integer x, Integer y, Integer width, Integer height) throws ChartaNotFoundException {
-        canvas = ChartaRepo.findById(canvasId);
+        charta = ChartaRepo.findById(canvasId);
         positionX = x;
         positionY = y;
         this.width = width;
