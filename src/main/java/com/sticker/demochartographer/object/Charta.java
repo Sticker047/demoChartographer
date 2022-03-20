@@ -7,10 +7,10 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class Canvas {
+public class Charta {
 
     private long id;
     private int width;
     private int height;
-    private List<Tile> tiles;
+    private List<Fragment> fragments;
 }
