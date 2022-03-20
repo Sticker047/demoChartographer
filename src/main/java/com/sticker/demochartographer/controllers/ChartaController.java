@@ -14,7 +14,7 @@ public class ChartaController {
     private ChartaService chartaService;
 
     //POST /chartas/?width={width}&height={height}
-    @PostMapping(path = "chartas")
+    @PostMapping
     public ResponseEntity createCharta(
             @RequestParam int width,
             @RequestParam int height
@@ -24,28 +24,19 @@ public class ChartaController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body("Неверно указан размер папируса");
         } catch (Exception e) {
-            return ResponseEntity.status(404).body("Произошла ошибка: " + e.getMessage());
-        }
-    }
-
-    @GetMapping("/")
-    public ResponseEntity getCharta(@RequestParam Long id) {
-        try {
-            return ResponseEntity.ok(chartaService.getCharta(id));
-        } catch (ChartaNotFoundException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.status(400).body("Произошла ошибка: " + e.getMessage());
         }
     }
 
     //DELETE /chartas/{id}/
-    @DeleteMapping
-    public ResponseEntity deleteCharta(@RequestParam Long id) {
+    @DeleteMapping("/{id}/")
+    public ResponseEntity deleteCharta(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(chartaService.delete(id));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+        } catch (ChartaNotFoundException e) {
+            return ResponseEntity.status(404).build();
+        } catch (Exception e){
+            return ResponseEntity.status(400).body("Произошла ошибка");
         }
     }
 

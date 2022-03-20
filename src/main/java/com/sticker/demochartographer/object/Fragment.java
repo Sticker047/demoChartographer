@@ -2,6 +2,8 @@ package com.sticker.demochartographer.object;
 
 import com.sticker.demochartographer.exception.ChartaNotFoundException;
 import com.sticker.demochartographer.repos.ChartaRepo;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +12,8 @@ import java.io.File;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Fragment {
     private long id;
     private int width;

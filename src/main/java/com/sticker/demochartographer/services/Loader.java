@@ -1,17 +1,19 @@
 package com.sticker.demochartographer.services;
 
 import com.sticker.demochartographer.object.Charta;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.*;
 
 public class Loader implements Serializable {
     public final long serialVersionUID = 42L;
 
-    private String pathToDirectory = "C:\\Users\\gagil\\OneDrive\\Рабочий стол\\demoChartographer\\src\\main\\resources\\chartas\\";
+    @Value("path")
+    private static String pathToDirectory = "C:\\Users\\gagil\\OneDrive\\Рабочий стол\\demoChartographer\\src\\main\\resources\\chartas\\";
 
-    public Charta loadCharta(Long id) throws IOException, ClassNotFoundException {
+    public static Charta loadCharta(long id) throws IOException, ClassNotFoundException {
 
-        FileInputStream fis = new FileInputStream(pathToDirectory + id + ".char");
+        FileInputStream fis = new FileInputStream(pathToDirectory + "charta_" + id + ".char");
         ObjectInputStream ois = new ObjectInputStream(fis);
 
         Charta charta = (Charta) ois.readObject();

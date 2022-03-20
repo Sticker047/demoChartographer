@@ -20,18 +20,19 @@ public class FragmentController {
     private FragmentService tileService;
 
     //POST /chartas/{id}/?x={x}&y={y}&width={width}&height={height}
+    //file.getResource().getFile()
     @PostMapping(path = "/chartas/{id}/")
-    public ResponseEntity createTile(@RequestBody File file,
-                                     @PathVariable Long id,
-                                     @RequestParam Integer x,
-                                     @RequestParam Integer y,
-                                     @RequestParam Integer width,
-                                     @RequestParam Integer height) {
+    public ResponseEntity createFragment(@RequestBody File file,
+                                         @PathVariable Long id,
+                                         @RequestParam Integer x,
+                                         @RequestParam Integer y,
+                                         @RequestParam Integer width,
+                                         @RequestParam Integer height) {
         try {
-            tileService.createTile(file, id, x, y, width, height);
+            tileService.createFragment(file, id, x, y, width, height);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
@@ -50,8 +51,7 @@ public class FragmentController {
                 image.setRGB(x0, y0, 0xff000000);
         }
 
-        for (Fragment fragment : ChartaRepo.findById(id).getFragments()
-        ) {
+        for (Fragment fragment : ChartaRepo.findById(id).getFragments()) {
             if (fragment.getPositionX() > x || fragment.getPositionX() + fragment.getWidth() < x + width) {
                 if (fragment.getPositionY() > y || fragment.getPositionY() + fragment.getHeight() < y + height) {
                     for (int xD = 0; xD < width; xD++) {
